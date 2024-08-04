@@ -53,7 +53,7 @@ impl Default for Snake {
         };
         let cli = Cli {
             width: 80,
-            height: 50,
+            height: 50*(16/9),
             snake_size_start: 3,
             file_path: None,
             snake_speed: 60,
@@ -240,6 +240,7 @@ impl Game for Snake {
                 &InputWrapper {
                     input: i,
                     cell_size: None,
+                    mouse_pos: None,
                 },
                 &self.cli,
                 &self.buffer,

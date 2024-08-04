@@ -1,6 +1,5 @@
 use egui::{
-    color_picker::{color_edit_button_rgba, Alpha},
-    Color32, InputState, Key, Pos2, Rgba, Rounding, Sense, Ui, Vec2,
+    color_picker::{color_edit_button_rgba, Alpha}, Color32, InputState, Key, Pos2, Response, Rgba, Rounding, Sense, Ui, Vec2
 };
 use graphic::Graphic;
 use window_rs::WindowBuffer;
@@ -25,6 +24,7 @@ pub trait Game: Default {
 pub struct InputWrapper<'a> {
     pub input: &'a InputState,
     pub cell_size: Option<f32>,
+    pub mouse_pos: Option<Response>,
 }
 
 impl Graphic for InputWrapper<'_> {
@@ -140,43 +140,38 @@ impl Graphic for InputWrapper<'_> {
         ret
     }
 
-    fn get_mouse_pos(&self, mouse: graphic::Mouse) -> Option<(f32, f32)> {
-        let Some(cell_size) = self.cell_size else {
+    fn get_mouse_pos(&self, _mouse: graphic::Mouse) -> Option<(f32, f32)> {
+        let Some((cell_size, mouse_pos)) = self.cell_size.zip(self.mouse_pos.as_ref()) else {
             return None;
         };
-        let ret = self.input.pointer.interact_pointer_pos()?;
-        let retured_pos = (ret[0] / cell_size, ret[1] / cell_size);
-        println!("mouse position: {:#?}", retured_pos);
-        let clicked = match mouse {
-            graphic::Mouse::Left => self.input.pointer.any_pressed(),
-            graphic::Mouse::Right => self.input.pointer.any_pressed(),
-            graphic::Mouse::Discard => self.input.pointer.any_pressed(),
-        };
-        println!("first click is {}", clicked);
-        if clicked {
-            Some(retured_pos)
-        } else {
-            None
+
+        let mut ret = mouse_pos.interact_pointer_pos()?;
+        if !mouse_pos.rect.contains(ret) {
+            return None
         }
+        let x = mouse_pos.rect.left_top().x;
+        let y = mouse_pos.rect.left_top().y;
+        ret -= (x, y).into();
+        let retured_pos = (ret[0] / cell_size, ret[1] / cell_size);
+        Some(retured_pos)
     }
 
-    fn get_mouse_down(&self, mouse: graphic::Mouse) -> bool {
-        println!("mouse clicked");
-        match mouse {
-            graphic::Mouse::Left => self.input.pointer.any_pressed(),
-            graphic::Mouse::Right => self.input.pointer.any_pressed(),
-            graphic::Mouse::Discard => self.input.pointer.any_pressed(),
-        }
+    fn get_mouse_down(&self, _mouse: graphic::Mouse) -> bool {
+        if let Some(ref mouse_pos) = self.mouse_pos {
+            true
+        } else {
+                false
+            }
     }
 }
 
-pub fn draw_window_buffer(ui: &mut egui::Ui, window: &WindowBuffer) -> f32 {
+pub fn draw_window_buffer(ui: &mut egui::Ui, window: &WindowBuffer) -> (f32, Response) {
     let max_width = ui.available_width();
     let max_height = ui.available_height();
     let size = (max_width / window.width() as f32).min(max_height / window.height() as f32);
-    egui::ScrollArea::both().show(ui, |ui| {
+    let res = egui::ScrollArea::both().show(ui, |ui| {
         let (response, painter) =
-            ui.allocate_painter(Vec2::new(max_width, ui.available_height()), Sense::hover());
+            ui.allocate_painter(Vec2::new(size * (window.width()) as f32, size * (window.height()) as f32), Sense{ click: true, drag: true, focusable: false });
 
         let base_position = response.rect.left_top().to_vec2();
         for x in 0..window.width() {
@@ -203,9 +198,10 @@ pub fn draw_window_buffer(ui: &mut egui::Ui, window: &WindowBuffer) -> f32 {
                     Color32::from_rgba_premultiplied(r, g, b, a),
                 );
             }
-        }
+        } response
     });
-    size
+    (size, res.inner)
+    
 }
 
 pub fn colour_changer(rgba_colour_to_change: u32, ui: &mut Ui) -> u32 {

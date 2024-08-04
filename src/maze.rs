@@ -19,7 +19,7 @@ pub struct Maze {
 
 impl Default for Maze {
     fn default() -> Self {
-        let mut buffer: WindowBuffer = WindowBuffer::new(30, 30);
+        let mut buffer: WindowBuffer = WindowBuffer::new(30, 30*(16/9));
 
         let mut buff = [0; 8];
         getrandom::getrandom(&mut buff).unwrap();
@@ -125,6 +125,7 @@ impl Game for Maze {
                 &InputWrapper {
                     input: i,
                     cell_size: None,
+                    mouse_pos: None,
                 },
                 &self.start_point,
             );

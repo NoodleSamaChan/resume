@@ -130,6 +130,7 @@ impl Game for Pong {
                 &InputWrapper {
                     input: i,
                     cell_size: None,
+                    mouse_pos: None,
                 },
                 &self.buffer,
             );

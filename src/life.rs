@@ -1,4 +1,4 @@
-use egui::Ui;
+use egui::{Response, Ui};
 use game_of_life::{Cli, World};
 use web_time::{Duration, Instant};
 use window_rs::WindowBuffer;
@@ -13,12 +13,13 @@ pub struct Life {
     config: World,
     time_check: Instant,
     cell_size: Option<f32>,
+    mouse_pos: Option<Response>,
 }
 
 impl Default for Life {
     fn default() -> Self {
         let cli = Cli {
-            width: 100,
+            width: 100+100*(3/2),
             height: 100,
             file_path: None,
         };
@@ -36,6 +37,7 @@ impl Default for Life {
             config,
             time_check,
             cell_size: None,
+            mouse_pos:  None,
         }
     }
 }
@@ -85,6 +87,8 @@ impl Game for Life {
                 &InputWrapper {
                     input: i,
                     cell_size: self.cell_size,
+                    mouse_pos: self.mouse_pos.clone(),
+
                 },
                 &self.cli,
             );
@@ -99,7 +103,10 @@ impl Game for Life {
 
     fn draw(&mut self, ctx: &egui::Context, ui: &mut egui::Ui) {
         ctx.request_repaint();
-        self.cell_size = Some(draw_window_buffer(ui, &self.config.window_buffer));
+        let (cell_size, mouse_pos) = draw_window_buffer(ui, &self.config.window_buffer);
+        self.cell_size = Some(cell_size);
+        self.mouse_pos = Some(mouse_pos);
+        //println!("cell size is {:#?} and mouse pos is {:#?}", self.cell_size, self.mouse_pos);
     }
 
     fn resize(&mut self, ui: &mut egui::Ui) {
