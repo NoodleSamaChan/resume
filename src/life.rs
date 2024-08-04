@@ -10,9 +10,9 @@ use crate::{
 
 pub struct Life {
     cli: Cli,
-    buffer: WindowBuffer,
     config: World,
     time_check: Instant,
+    cell_size: Option<f32>,
 }
 
 impl Default for Life {
@@ -22,7 +22,6 @@ impl Default for Life {
             height: 100,
             file_path: None,
         };
-        let buffer: WindowBuffer = WindowBuffer::new(cli.width, cli.height);
         let config = World::new(
             WindowBuffer::new(cli.width, cli.height),
             0,
@@ -34,9 +33,9 @@ impl Default for Life {
 
         Self {
             cli,
-            buffer,
             config,
             time_check,
+            cell_size: None,
         }
     }
 }
@@ -65,8 +64,8 @@ impl Life {
     }
 
     pub fn ui(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
-        self.update(ctx);
         egui::SidePanel::right("Configuration").show(ctx, |ui| self.configuration(ui));
+        self.update(ctx);
         egui::CentralPanel::default().show(ctx, |ui| self.draw(ctx, ui));
     }
 }
@@ -82,9 +81,13 @@ impl Game for Life {
 
     fn update(&mut self, ctx: &egui::Context) {
         ctx.input(|i| {
-            let _ = self
-                .config
-                .handle_user_input(&InputWrapper { input: i }, &self.cli);
+            let _ = self.config.handle_user_input(
+                &InputWrapper {
+                    input: i,
+                    cell_size: self.cell_size,
+                },
+                &self.cli,
+            );
         });
 
         let two_seconds = Duration::from_secs(self.config.speed());
@@ -96,26 +99,25 @@ impl Game for Life {
 
     fn draw(&mut self, ctx: &egui::Context, ui: &mut egui::Ui) {
         ctx.request_repaint();
-        draw_window_buffer(ui, &self.buffer)
+        self.cell_size = Some(draw_window_buffer(ui, &self.config.window_buffer));
     }
-    
+
     fn resize(&mut self, ui: &mut egui::Ui) {
         let size = 30.0;
-        
+
         let max_width = (ui.available_width() / size) as usize;
         let max_height = (ui.available_height() / size) as usize;
 
-        self.buffer = WindowBuffer::new(max_width, max_height);
-        self.config = create_world(self.cli.width, self.cli.height);
+        self.config = create_world(max_width, max_height);
     }
 }
 
 fn create_world(width: usize, height: usize) -> World {
     World::new(
         WindowBuffer::new(width, height),
-            0,
-            Instant::now(),
-            2,
-            0x0066CC33,
+        0,
+        Instant::now(),
+        2,
+        0x0066CC33,
     )
 }

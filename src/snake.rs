@@ -236,9 +236,14 @@ impl Game for Snake {
             snake_generator(&mut self.config, &self.buffer, &self.cli);
         };
         ctx.input(|i| {
-            let _ =
-                self.config
-                    .handle_user_input(&InputWrapper { input: i }, &self.cli, &self.buffer);
+            let _ = self.config.handle_user_input(
+                &InputWrapper {
+                    input: i,
+                    cell_size: None,
+                },
+                &self.cli,
+                &self.buffer,
+            );
         });
 
         if (self.points_to_reach == self.config.score / 10)
@@ -277,9 +282,8 @@ impl Game for Snake {
     }
 
     fn resize(&mut self, ui: &mut egui::Ui) {
-
         let size = 30.0;
-        
+
         let max_width = (ui.available_width() / size) as usize;
         let max_height = (ui.available_height() / size) as usize;
 
@@ -291,28 +295,28 @@ impl Game for Snake {
 fn create_world(snake_speed: usize) -> World {
     World::new(
         Direction::Still,
-            vec![Direction::Still],
-            Vec::new(),
-            (0, 0),
-            false,
-            Instant::now(),
-            0,
-            snake_speed,
-            0,
-            0,
-            None,
-            Vec::new(),
-            TimeCycle::Forward,
-            Some(Vec::new()),
-            vec![Direction::Still],
-            Some(Vec::new()),
-            Direction::Still,
-            0,
-            0x0033CCFF,
-            0x00CC66FF,
-            0x00CC33FF,
-            0x00FFCC00,
-            0x0066CC33,
-            0x00FF0000,
-    )     
+        vec![Direction::Still],
+        Vec::new(),
+        (0, 0),
+        false,
+        Instant::now(),
+        0,
+        snake_speed,
+        0,
+        0,
+        None,
+        Vec::new(),
+        TimeCycle::Forward,
+        Some(Vec::new()),
+        vec![Direction::Still],
+        Some(Vec::new()),
+        Direction::Still,
+        0,
+        0x0033CCFF,
+        0x00CC66FF,
+        0x00CC33FF,
+        0x00FFCC00,
+        0x0066CC33,
+        0x00FF0000,
+    )
 }

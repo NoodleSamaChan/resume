@@ -126,9 +126,13 @@ impl Game for Pong {
         }
 
         ctx.input(|i| {
-            let _ = self
-                .config
-                .handle_user_input(&InputWrapper { input: i }, &self.buffer);
+            let _ = self.config.handle_user_input(
+                &InputWrapper {
+                    input: i,
+                    cell_size: None,
+                },
+                &self.buffer,
+            );
         });
 
         self.config.update(
@@ -142,9 +146,9 @@ impl Game for Pong {
 
     fn draw(&mut self, ctx: &egui::Context, ui: &mut egui::Ui) {
         ctx.request_repaint();
-        draw_window_buffer(ui, &self.buffer)
+        draw_window_buffer(ui, &self.buffer);
     }
-    
+
     fn resize(&mut self, ui: &mut egui::Ui) {
         let size = 30.0;
         

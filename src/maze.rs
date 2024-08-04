@@ -121,9 +121,13 @@ impl Game for Maze {
     fn update(&mut self, ctx: &egui::Context) {
         let elapsed_time = Duration::from_millis(1_u64);
         ctx.input(|i| {
-            let _ = self
-                .player
-                .handle_user_input(&InputWrapper { input: i }, &self.start_point);
+            let _ = self.player.handle_user_input(
+                &InputWrapper {
+                    input: i,
+                    cell_size: None,
+                },
+                &self.start_point,
+            );
         });
 
         if self.update_time_wait.elapsed() >= elapsed_time {
@@ -134,12 +138,12 @@ impl Game for Maze {
     }
 
     fn draw(&mut self, _ctx: &egui::Context, ui: &mut egui::Ui) {
-        draw_window_buffer(ui, &self.buffer)
+        draw_window_buffer(ui, &self.buffer);
     }
-    
+
     fn resize(&mut self, ui: &mut egui::Ui) {
         let size = 30.0;
-        
+
         let max_width = (ui.available_width() / size) as usize;
         let max_height = (ui.available_height() / size) as usize;
 
@@ -154,13 +158,12 @@ impl Game for Maze {
 }
 
 fn create_world(config: MazeConfig) -> Player {
-    
     Player::new(
-            (0, 0),
-            (0, 0),
-            maze::Direction::Still,
-            (0, 0),
-            config.clone(),
-            false,
+        (0, 0),
+        (0, 0),
+        maze::Direction::Still,
+        (0, 0),
+        config.clone(),
+        false,
     )
 }

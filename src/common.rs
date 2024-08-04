@@ -24,6 +24,7 @@ pub trait Game: Default {
 
 pub struct InputWrapper<'a> {
     pub input: &'a InputState,
+    pub cell_size: Option<f32>,
 }
 
 impl Graphic for InputWrapper<'_> {
@@ -140,15 +141,18 @@ impl Graphic for InputWrapper<'_> {
     }
 
     fn get_mouse_pos(&self, mouse: graphic::Mouse) -> Option<(f32, f32)> {
-        let ret = self.input.pointer.interact_pos()?;
-        let retured_pos = (ret[0], ret[1]);
+        let Some(cell_size) = self.cell_size else {
+            return None;
+        };
+        let ret = self.input.pointer.interact_pointer_pos()?;
+        let retured_pos = (ret[0] / cell_size, ret[1] / cell_size);
         println!("mouse position: {:#?}", retured_pos);
         let clicked = match mouse {
             graphic::Mouse::Left => self.input.pointer.any_pressed(),
             graphic::Mouse::Right => self.input.pointer.any_pressed(),
             graphic::Mouse::Discard => self.input.pointer.any_pressed(),
-        }; 
-        print!("first click is {}", clicked);
+        };
+        println!("first click is {}", clicked);
         if clicked {
             Some(retured_pos)
         } else {
@@ -166,7 +170,7 @@ impl Graphic for InputWrapper<'_> {
     }
 }
 
-pub fn draw_window_buffer(ui: &mut egui::Ui, window: &WindowBuffer) {
+pub fn draw_window_buffer(ui: &mut egui::Ui, window: &WindowBuffer) -> f32 {
     let max_width = ui.available_width();
     let max_height = ui.available_height();
     let size = (max_width / window.width() as f32).min(max_height / window.height() as f32);
@@ -201,6 +205,7 @@ pub fn draw_window_buffer(ui: &mut egui::Ui, window: &WindowBuffer) {
             }
         }
     });
+    size
 }
 
 pub fn colour_changer(rgba_colour_to_change: u32, ui: &mut Ui) -> u32 {
