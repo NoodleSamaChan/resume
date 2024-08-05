@@ -111,6 +111,16 @@ impl Cv {
                         "https://github.com/meilisearch/meilisearch-rust",
                     );
                     ui.hyperlink_to("Lasr", "https://github.com/versatus/lasr");
+
+                    ui.label("\n");
+                    ui.separator();
+
+                    ui.label(RichText::new("ANYTHING ELSE?").strong());
+                    ui.label("I am also very happy to be appart of the team of Rust Lille, which helps bring together the french speaking Rust community in the North of France (for now!).");
+                    ui.hyperlink_to(
+                        "Have a look at our website!",
+                        "https://rustlille.fr",
+                    );
                 });
             });
 
