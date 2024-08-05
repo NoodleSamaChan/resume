@@ -157,7 +157,7 @@ impl Graphic for InputWrapper<'_> {
     }
 
     fn get_mouse_down(&self, _mouse: graphic::Mouse) -> bool {
-        if let Some(ref mouse_pos) = self.mouse_pos {
+        if let Some(ref _mouse_pos) = self.mouse_pos {
             true
         } else {
                 false

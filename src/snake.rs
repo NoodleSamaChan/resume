@@ -1,4 +1,4 @@
-use egui::Ui;
+use egui::{RichText, Ui};
 use snake::{
     display, go_display, return_in_time, snake_generator, Cli, Difficulty, Direction, TimeCycle,
     World,
@@ -53,7 +53,7 @@ impl Default for Snake {
         };
         let cli = Cli {
             width: 80,
-            height: 50*(16/9),
+            height: 50,
             snake_size_start: 3,
             file_path: None,
             snake_speed: 60,
@@ -208,6 +208,16 @@ impl Snake {
             if ui.add(egui::Button::new("Create")).clicked() {
                 *self = self.new_snake_w_options();
             };
+
+            ui.separator();
+
+            ui.label(RichText::new("How to play in single player mode: ").strong());
+            ui.label("Use the up, down, left, and right arrow to move Snakito around!");
+            ui.label(RichText::new("How to play with two snakes: ").strong());
+            ui.label("Player 1 can still use the arrows to move their snake, player 2 can user K (right), O (up), M (left), L (down).");
+            ui.label("The creator of the game wishes to apologise if you feel like K/O/L/M are a Weird choice. The creator of the game codes on an Azerty keyboard, so for them it made sense. Hope you can still enjoy playing with the Snakitos. : )");
+            
+            ui.separator();
         })
         .response
     }

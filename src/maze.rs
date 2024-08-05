@@ -1,4 +1,4 @@
-use egui::Ui;
+use egui::{RichText, Ui};
 use maze::start_end_generator;
 use maze::{display, MazeConfig, Player};
 use rand::SeedableRng;
@@ -19,7 +19,7 @@ pub struct Maze {
 
 impl Default for Maze {
     fn default() -> Self {
-        let mut buffer: WindowBuffer = WindowBuffer::new(30, 30*(16/9));
+        let mut buffer: WindowBuffer = WindowBuffer::new(30 + 30 * (16/10), 40 );
 
         let mut buff = [0; 8];
         getrandom::getrandom(&mut buff).unwrap();
@@ -98,6 +98,11 @@ impl Maze {
             self.config.generate(&mut self.buffer, &mut rng);
             self.player.maze_config = self.config.clone();
             display(&self.player, &mut self.buffer);
+
+            ui.label(RichText::new("How to play maze: ").strong());
+            ui.label("Use the up, down, left, and right arrow to move your character around around!");
+
+            ui.separator();
         })
         .response
     }

@@ -1,4 +1,4 @@
-use egui::{Response, Ui};
+use egui::{Response, RichText, Ui};
 use game_of_life::{Cli, World};
 use web_time::{Duration, Instant};
 use window_rs::WindowBuffer;
@@ -19,8 +19,8 @@ pub struct Life {
 impl Default for Life {
     fn default() -> Self {
         let cli = Cli {
-            width: 100+100*(3/2),
-            height: 100,
+            width: 100+100*(16/10),
+            height: 125,
             file_path: None,
         };
         let config = World::new(
@@ -61,6 +61,21 @@ impl Life {
 
             ui.label("Speed of the game:");
             ui.add(egui::Slider::new(&mut self.config.speed, 0..=50));
+
+            ui.separator();
+
+            ui.label(RichText::new("How to play the game of life: ").strong());
+            ui.label("Draw whichever shape you want using your mouse by clicking or clicking and dragging it around!");
+
+            ui.separator();
+
+            ui.label(RichText::new("But remember the rules of the game of life: ").strong());
+            ui.label("1. Any live cell with fewer than two live neighbours dies, as if by underpopulation.");
+            ui.label("2. Any live cell with two or three live neighbours lives on to the next generation.");
+            ui.label("3. Any live cell with more than three live neighbours dies, as if by overpopulation.");
+            ui.label("4. Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.");
+
+            ui.separator();
         })
         .response
     }

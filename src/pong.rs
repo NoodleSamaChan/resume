@@ -2,7 +2,7 @@ use crate::{
     common::{colour_changer, Game},
     draw_window_buffer, InputWrapper,
 };
-use egui::Ui;
+use egui::{RichText, Ui};
 use pong::{creation_pongs, display, Cli, Difficulty, World};
 use rand::SeedableRng;
 use web_time::Instant;
@@ -98,6 +98,32 @@ impl Pong {
             let rgba_ball: u32 = self.config.ball_colour;
             let ball_color = colour_changer(rgba_ball, ui);
             self.config.ball_colour = ball_color;
+
+            ui.separator();
+
+            ui.label("Number of points to reach:");
+            ui.add(egui::Slider::new(&mut self.cli.number_of_points_to_reach, 0..=50).suffix("points"));
+
+            ui.separator();
+
+            ui.label("Player 1 points:");
+            let mut points = self.config.player_1_score as f32;
+            let max = self.cli.number_of_points_to_reach as f32;
+            ui.add(egui::Slider::new(&mut points, 0.0..=max).suffix("points"));
+
+            ui.separator();
+
+            ui.label("Player 2 points:");
+            let mut points = self.config.player_2_score as f32;
+            let max = self.cli.number_of_points_to_reach as f32;
+            ui.add(egui::Slider::new(&mut points, 0.0..=max).suffix("points"));
+
+            ui.separator();
+
+            ui.label(RichText::new("How to play the game: ").strong());
+            ui.label("Player 1 (the player on the left) can move their board pressing E (up) and D (down).");
+            ui.label("Player 2 (the player on the right) can move their board pressing O (up) and L (down).");
+            ui.label("W launches the ball.");
 
             ui.separator();
         })
