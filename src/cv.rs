@@ -132,7 +132,7 @@ impl Cv {
 
                         ui.separator();
                         ui.add_space(20.);
-                        ui.heading("Hello, my name is Luna Ferraraccio");
+                        ui.heading(RichText::new("Hello, my name is Luna Ferraraccio").strong().underline());
                         ui.label("\n");
                         ui.label("\n");
                         ui.label("Junior Back-end developer seeking new opportunities. Before becoming a Rust back-end developer, I acutally used to work in communication.");
@@ -153,7 +153,7 @@ impl Cv {
                         ui.separator();
 
                         ui.add_space(20.);
-                        ui.heading("Concerning my Education:");
+                        ui.heading(RichText::new("Concerning my Education:").strong().underline());
                         ui.label("\n");
                         ui.label("\n");
                         ui.label("I studied");
@@ -168,17 +168,19 @@ impl Cv {
                         ui.label(RichText::new("Project Management training, as well as a People Management training").strong());
                         ui.label("\n");
                         ui.label("Finally, I started learning coding");
-                        ui.label(RichText::new("from July 2023").strong());
+                        ui.label(RichText::new("from July 2023.").strong());
+                        ui.label("I initially started with Python, but quickly moved to ");
+                        ui.label(RichText::new("Rust.").underline().strong());
                         ui.label("During that time, I've tackled number of projects in order learn as much as I could about coding, and Rust in particular.\n");
                         ui.label("\n");
                         ui.label("\n");
                         ui.separator();
 
                         ui.add_space(20.);
-                        ui.heading("My notable projects:");
+                        ui.heading(RichText::new("My notable projects:").strong().underline());
                         ui.label("\n");
                         ui.label("\n");
-                        ui.hyperlink_to("LairBnB -> NEED TO REDO THE PROJECT IN RUST", "https://meilisearch.com");
+                        ui.hyperlink_to("LairBnB", "https://github.com/NoodleSamaChan/lairbnb_rs");
                         ui.label("\n");
                         ui.label("My very own version of the famous AirBnB website. In this project, I learned how to manage databases and a REST API.");
                         ui.label("\n");
@@ -195,7 +197,7 @@ impl Cv {
                         ui.label("\n");
                         ui.label("\n");
 
-                        ui.label(RichText::new("Game projects:").strong());
+                        ui.label(RichText::new("Game projects:").strong().underline());
                         ui.label("\n");
                         ui.label("I have produced a series of projects around well known, old style games which allowed me to get much more familiar with programming logic, the language of Rust, project management, code management. You'll be able to try all of these games on this website. Please feel free to try them and have fun. :) I'll link the GitHub repos below if you're curious.");
                         ui.label("\n");
