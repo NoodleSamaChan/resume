@@ -102,6 +102,7 @@ impl Snake {
     }
     pub fn configuration(&mut self, ui: &mut Ui) -> egui::Response {
         ui.vertical(|ui| {
+            egui::ScrollArea::vertical().show(ui, |ui| {
             ui.label("Reset snake board:");
             if ui.add(egui::Button::new("Reset")).clicked() {
                 *self = Snake::default();
@@ -214,11 +215,13 @@ impl Snake {
             ui.label(RichText::new("How to play in single player mode: ").strong());
             ui.label("Use the up, down, left, and right arrow to move Snakito around!");
             ui.label(RichText::new("How to play with two snakes: ").strong());
-            ui.label("Player 1 can still use the arrows to move their snake, player 2 can user K (right), O (up), M (left), L (down).");
+            ui.label("Player 1 can still use the arrows to move their snake, player 2 can use K (right), O (up), M (left), L (down).");
             ui.label("The creator of the game wishes to apologise if you feel like K/O/L/M are a Weird choice. The creator of the game codes on an Azerty keyboard, so for them it made sense. Hope you can still enjoy playing with the Snakitos. : )");
             
             ui.separator();
         })
+
+    })
         .response
     }
 

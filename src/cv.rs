@@ -116,7 +116,7 @@ impl Cv {
                     ui.separator();
 
                     ui.label(RichText::new("ANYTHING ELSE?").strong());
-                    ui.label("I am also very happy to be appart of the team of Rust Lille, which helps bring together the french speaking Rust community in the North of France (for now!).");
+                    ui.label("I am also very happy to be a part of the team of Rust Lille, which helps bring together the French speaking Rust community in the North of France (for now!).");
                     ui.hyperlink_to(
                         "Have a look at our website!",
                         "https://rustlille.fr",
@@ -145,7 +145,7 @@ impl Cv {
                         ui.heading(RichText::new("Hello, my name is Luna Ferraraccio").strong().underline());
                         ui.label("\n");
                         ui.label("\n");
-                        ui.label("Junior Back-end developer seeking new opportunities. Before becoming a Rust back-end developer, I acutally used to work in communication.");
+                        ui.label("Junior Back-end developer seeking new opportunities. Before becoming a Rust back-end developer, I actualy used to work in communication.");
                         ui.label("\n");
                         ui.label("I worked for ");
                         ui.label(RichText::new("6 years at Ubisoft,").strong());
@@ -154,8 +154,8 @@ impl Cv {
                         ui.label("I was a");
                         ui.label(RichText::new("Community Manager, a Listening Coordinator, and finally the team lead of the APAC community team.").strong());
                         ui.label("\n");
-                        ui.label("I discovered the world of developement and coding during my work at ");
-                        ui.label(RichText::new("Meilisearch as a Lead Community Developer.").strong());
+                        ui.label("I discovered the world of development and coding during my work at ");
+                        ui.label(RichText::new("Meilisearch as a Lead Community Developer in the DevRel department.").strong());
                         ui.label("\n");
                         ui.label("I fell in love with coding and decided to start a new adventure in my professional life.\n");
                         ui.label("\n");
@@ -167,7 +167,7 @@ impl Cv {
                         ui.label("\n");
                         ui.label("\n");
                         ui.label("I studied");
-                        ui.label(RichText::new("English language, litterature, and history").strong());
+                        ui.label(RichText::new("English language, literature, and history").strong());
                         ui.label("at the university of Le Mans, France, for my Bachelor.");
                         ui.label("\n");
                         ui.label("Then, I also studied");
@@ -181,7 +181,7 @@ impl Cv {
                         ui.label(RichText::new("from July 2023.").strong());
                         ui.label("I initially started with Python, but quickly moved to ");
                         ui.label(RichText::new("Rust.").underline().strong());
-                        ui.label("During that time, I've tackled number of projects in order learn as much as I could about coding, and Rust in particular.\n");
+                        ui.label("During that time, I've tackled a number of projects in order learn as much as I could about coding, and Rust in particular.\n");
                         ui.label("\n");
                         ui.label("\n");
                         ui.separator();
@@ -218,7 +218,7 @@ impl Cv {
                             
                         };
                         ui.label("\n");
-                        ui.label("I've implemented number of functionalities with the Snake project. There's a classic mode of course, but you can setup a number of options should you wish to.");
+                        ui.label("I've implemented a number of functionalities with the Snake project. There's a classic mode of course, but you can setup a number of options should you wish to.");
                         ui.label("\n");
                         ui.label(RichText::new("Ghost mode: ").strong());
                         ui.label("will allow your snake to safely go through walls");
@@ -278,7 +278,7 @@ impl Cv {
                         ui.label("\n");
                         ui.hyperlink_to("GitHub Repo", "https://github.com/NoodleSamaChan/resume");
                         ui.label("\n");
-                        ui.label("I have coded my resume entirely in eGui, which necessitated for me to understand the best way to transpose the code of all my games with this graphic library.");
+                        ui.label("I have coded my resume entirely in eGui, which necessitated to understand the best way to transpose the code of all my games with this graphic library.");
                         ui.label("\n");
                         ui.label("\n");
                     });
