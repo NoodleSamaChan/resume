@@ -110,6 +110,7 @@ impl Cv {
                         "Top 10 contributor of Meilisearch-Rust",
                         "https://github.com/meilisearch/meilisearch-rust",
                     );
+                    ui.label("Meilisearch is a lightning-fast search engine that fits effortlessly into apps, websites, and workflow. It is a project coded in Rust and top 12 of all Rust project on GitHub.");
                     ui.hyperlink_to("Lasr", "https://github.com/versatus/lasr");
 
                     ui.label("\n");
