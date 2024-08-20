@@ -44,7 +44,7 @@ impl Default for Pong {
             cli.pong_speed,
             cli.ball_speed,
             rand::rngs::StdRng::seed_from_u64(seed),
-            0x00FF0000,
+            0xFFFF0000,
             0xFF00FF00,
             0xFFFFFF00,
         );

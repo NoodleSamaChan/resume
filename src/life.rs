@@ -28,7 +28,7 @@ impl Default for Life {
             0,
             Instant::now(),
             2,
-            0x0066CC33,
+            0xFF66CC33,
         );
         let time_check = Instant::now();
 

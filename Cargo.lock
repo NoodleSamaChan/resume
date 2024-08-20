@@ -1697,7 +1697,7 @@ dependencies = [
 [[package]]
 name = "maze"
 version = "0.1.0"
-source = "git+https://github.com/NoodleSamaChan/maze.git?rev=032fe3c#032fe3c391e288fe56cebf6572bc6a5dfe09e7df"
+source = "git+https://github.com/NoodleSamaChan/maze.git?rev=90b9fd7#90b9fd7c83ffe1d35b51982ae3b852a4661ba759"
 dependencies = [
  "graphic",
  "rand",
@@ -2168,7 +2168,7 @@ dependencies = [
 [[package]]
 name = "pong"
 version = "0.1.0"
-source = "git+https://github.com/NoodleSamaChan/pong.git?rev=d1427d3#d1427d3b1dffd639f38de50abf8bd2242f398ad5"
+source = "git+https://github.com/NoodleSamaChan/pong.git?rev=fb97649#fb97649c5241bcb46f5b1b33c141928b2efaec31"
 dependencies = [
  "clap",
  "graphic",
@@ -2541,7 +2541,7 @@ dependencies = [
 [[package]]
 name = "snake"
 version = "0.1.0"
-source = "git+https://github.com/NoodleSamaChan/snake.git?rev=e49847d#e49847d5b3a5f3d38e768b2e1706949ff760cbe2"
+source = "git+https://github.com/NoodleSamaChan/snake.git?rev=6b84cdf#6b84cdf695548920468b14d9138aa68776f2f353"
 dependencies = [
  "clap",
  "graphic",
